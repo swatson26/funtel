@@ -1,0 +1,8 @@
+{
+    "python.linting.flake8Enabled": false,
+    "python.linting.pydocstyleEnabled": false,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.enabled": false,
+    "python.linting.pycodestyleArgs": ["--max-line-length=100","--ignore=E301,E501,E266,E402"],
+    "python.linting.flake8Args": ["--max-line-length=100","--ignore=E301,E501,E266,E402"]
+}
