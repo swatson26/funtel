@@ -10,32 +10,33 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
+import secrets
 from pathlib import Path
-import logging
-import datetime
+import dj_database_url
 from decouple import config
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+SECRET_KEY = config("SECRET_KEY")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
+IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+if not IS_HEROKU_APP:
+    DEBUG = True
 
-SECRET_KEY = config("SECRET_KEY")
 
-ALLOWED_HOSTS = []
+if IS_HEROKU_APP:
+    ALLOWED_HOSTS = ["*"]
+else:
+    ALLOWED_HOSTS = []
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
 
 # Application definition
 
@@ -86,16 +87,38 @@ WSGI_APPLICATION = 'funtel_prj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'funtel2',
-        'USER': 'steven',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': 5432,
+
+
+if IS_HEROKU_APP:
+    # In production on Heroku the database configuration is derived from the `DATABASE_URL`
+    # environment variable by the dj-database-url package. `DATABASE_URL` will be set
+    # automatically by Heroku when a database addon is attached to your Heroku app. See:
+    # https://devcenter.heroku.com/articles/provisioning-heroku-postgres
+    # https://github.com/jazzband/dj-database-url
+    DATABASES = {
+        "default": dj_database_url.config(
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
+    }
+else:
+    # When running locally in development or in CI, a sqlite database file will be used instead
+    # to simplify initial setup. Longer term it's recommended to use Postgres locally too.
+    DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "funtel2",
+        "USER": "steven",
+        "PASSWORD": "",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
+
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -164,6 +187,3 @@ LOGGING = {
         'level': 'DEBUG',
     },
 }
-
-import django_heroku
-django_heroku.settings(locals())
