@@ -160,27 +160,33 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-    'standard': {
-        'format': '[%(asctime)s] [%(levelname)s] %(name)s: %(message)s',
-        'datefmt': '%Y-%m-%d %H:%M:%S'}
+        'verbose': {
+            'format': ('%(asctime)s [%(process)d] [%(levelname)s] ' +
+                       'pathname=%(pathname)s lineno=%(lineno)s ' +
+                       'funcname=%(funcName)s %(message)s'),
+            'datefmt': '%Y-%m-%d %H:%M:%S'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        }
     },
     'handlers': {
-    'console': {
-        'level': 'DEBUG',
-        'class': 'logging.StreamHandler',
-        'formatter': 'standard',  # Add this line to specify the formatter
-    },
-    'file': {
-        'level': 'DEBUG',
-        'class': 'logging.FileHandler',
-        'filename': '/Users/steven/funtel/loggy.log',
-        'formatter': 'standard',  # Add this line to specify the formatter
+        'null': {
+            'level': 'DEBUG',
+            'class': 'logging.NullHandler',
         },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose'
+        }
     },
-    'root': {
-        'handlers': ['console', 'file'],
-        'level': 'DEBUG',
-    },
+    'loggers': {
+        'testlogger': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        }
+    }
 }
 
 # Static files (CSS, JavaScript, Images)
