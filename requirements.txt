@@ -32,7 +32,6 @@ six==1.16.0
 soupsieve==2.4.1
 SQLAlchemy==2.0.15
 sqlparse==0.4.4
-suds-jurko==0.6
 typing-extensions==4.5.0
 tzdata==2023.3
 ulmo==0.8.8
