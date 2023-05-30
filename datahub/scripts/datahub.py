@@ -72,7 +72,7 @@ class SnotelDataFetcher:
             return []
         if add_to_db:
             self.db_manager.insert_snotel_sites(self.all_sites)
-            
+
 
     def get_site_data(self, site_id, start_timestamp, end_timestamp=None):
         """
