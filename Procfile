@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn datahub.wsgi
+web: gunicorn funtel_prj.wsgi
