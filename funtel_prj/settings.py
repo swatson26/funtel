@@ -27,8 +27,9 @@ SECRET_KEY = config("SECRET_KEY")
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
-if not IS_HEROKU_APP:
+if IS_HEROKU_APP:
     DEBUG = True
+    
 
 
 if IS_HEROKU_APP:
