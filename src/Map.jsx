@@ -71,7 +71,7 @@ const MapComponent = () => {
         const color = color0.map((c, index) => Math.round((1 - t) * c + t * color1[index]));
         return color;
       }
-      return [172, 172, 172]; // Default gray
+      return [54, 56, 60]; // Default gray
     },
     getLineColor: [0, 0, 0], // Black border color
     lineWidthMinPixels: 1, // Border line width
