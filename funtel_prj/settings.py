@@ -31,7 +31,7 @@ SECRET_KEY = config("SECRET_KEY")
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
 if IS_HEROKU_APP:
-    DEBUG = True
+    DEBUG = False
 else:
     DEBUG = True
 
@@ -229,3 +229,7 @@ WHITENOISE_KEEP_ONLY_HASHED_FILES = True
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+if IS_HEROKU_APP:
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
