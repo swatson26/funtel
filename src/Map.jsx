@@ -3,11 +3,7 @@ import { StaticMap, MapContext, NavigationControl } from 'react-map-gl';
 import DeckGL, { ScatterplotLayer } from 'deck.gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useNavigate } from 'react-router-dom';
-
-
-
-const API_URL = 'http://localhost:8000/stations/';
-
+import axios from 'axios';
 
 
 const INITIAL_VIEW_STATE = {
@@ -40,9 +36,11 @@ const MapComponent = () => {
   const [hoveredPosition, setHoveredPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    fetch(API_URL)
-      .then((response) => response.json())
-      .then((data) => setStationData(data));
+    axios.get('http://localhost:8000/api/stations/')
+      .then((response) => {
+        setStationData(response.data);
+      })
+      .catch((error) => console.error('Error fetching station data:', error));
   }, []);
 
   const navigate = useNavigate();

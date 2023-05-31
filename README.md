@@ -1,8 +1,5 @@
 # Snotels are fun
 
-
-
-
 ## to run manually
 * start backend server `python manage.py runserver`
 * if first time, add snotel sites with `python manage.py runscript run_setup`
@@ -10,10 +7,8 @@
 * start server with `yarn start`
 
 
-
-
 ## TODO
-* get rid of suds and ulmo
+* get rid of suds and ulmo - relatedly, fix the problem when there is temp but no depth for a timestamp
 * add weather forecasts to site pages
 * add wind rose to site pages
 * handle local/utc time better

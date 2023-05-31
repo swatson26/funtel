@@ -4,6 +4,7 @@ import { createTheme, ThemeProvider, useThemeProps } from '@mui/material/styles'
 import { useParams } from 'react-router-dom';
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryLabel } from 'victory';
 import { ReactComponent as Logo } from './assets/mtn.svg';
+import axios from 'axios';
 
 const SitePage = () => {
   const { snotel_site_id } = useParams();
@@ -11,16 +12,15 @@ const SitePage = () => {
   const [stationName, setStationName] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:8000/stations/${snotel_site_id}/72/`)
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data.data);
+    axios.get(`http://localhost:8000/api/station/${snotel_site_id}/?time_offset_hrs=72`)
+      .then((response) => {
+        setData(response.data.data);
       })
       .catch((error) => console.error('Error fetching data:', error));
 
-    fetch('http://localhost:8000/stations/')
-      .then((response) => response.json())
-      .then((stationsData) => {
+    axios.get('http://localhost:8000/api/stations/')
+      .then((response) => {
+        const stationsData = response.data;
         const station = stationsData.find((station) => station.site_id === snotel_site_id);
         if (station) {
           setStationName(station.name); 
