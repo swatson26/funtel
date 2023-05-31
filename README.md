@@ -17,3 +17,4 @@
 * add weather forecasts to site pages
 * add wind rose to site pages
 * handle local/utc time better
+* pass station name thru to site so dont need to make another call
