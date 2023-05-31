@@ -12,13 +12,13 @@ const SitePage = () => {
   const [stationName, setStationName] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/station/${snotel_site_id}/?time_offset_hrs=72`)
+    axios.get(`${process.env.HOST}/api/station/${snotel_site_id}/?time_offset_hrs=72`)
       .then((response) => {
         setData(response.data.data);
       })
       .catch((error) => console.error('Error fetching data:', error));
 
-    axios.get('http://localhost:8000/api/stations/')
+    axios.get(`${process.env.HOST}/api/stations/`)
       .then((response) => {
         const stationsData = response.data;
         const station = stationsData.find((station) => station.site_id === snotel_site_id);

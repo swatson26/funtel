@@ -36,7 +36,7 @@ const MapComponent = () => {
   const [hoveredPosition, setHoveredPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    axios.get('http://localhost:8000/api/stations/')
+    axios.get(`${process.env.HOST}/api/stations/`)
       .then((response) => {
         setStationData(response.data);
       })

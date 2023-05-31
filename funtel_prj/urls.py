@@ -30,11 +30,3 @@ urlpatterns = [
      path('admin/', admin.site.urls),
      path('api/', include(router.urls))
 ]
-
-
-# urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('stations/', get_all_stations, name='get_all_stations'),
-#     path('stations/<str:station_id>/<int:time_offset_hrs>/',
-#          get_station_data, name='get_station_data'),
-# ]
