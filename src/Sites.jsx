@@ -23,7 +23,7 @@ const SitePage = () => {
       .then((stationsData) => {
         const station = stationsData.find((station) => station.site_id === snotel_site_id);
         if (station) {
-          setStationName(station.name.toLowerCase()); // Set the station name as the header
+          setStationName(station.name); 
           const { lat, lon } = station;
         }
       });
@@ -137,7 +137,7 @@ const SitePage = () => {
               marginTop: '20px',
             }}
           >
-            snow and depth
+            snow depth for {stationName} Snotel
           </Typography>
           <VictoryChart 
             containerComponent={<VictoryVoronoiContainer voronoiDimension="x" />}

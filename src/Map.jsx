@@ -99,7 +99,7 @@ const MapComponent = () => {
         ContextProvider={MapContext.Provider}
       >
         <StaticMap 
-        mapboxApiAccessToken="pk.eyJ1Ijoic3dhdHNvbjI2IiwiYSI6ImNsaTExN2JtcjAycngzbW50MDBpMTdseHQifQ.VCn_sLJDb1267Sb63L3_XQ"
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         mapStyle={MAP_STYLE} />
         <NavigationControl style={NAV_CONTROL_STYLE} />
         {hoveredObject && (
