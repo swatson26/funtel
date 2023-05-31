@@ -35,7 +35,7 @@ else:
 
 
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ["*"]
+    ALLOWED_HOSTS = ['funtel.herokuapp.com/', '127.0.0.1', 'localhost']
 else:
     ALLOWED_HOSTS = []
 
@@ -205,11 +205,11 @@ LOGGING = {
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
 
 STORAGES = {
     # Enable WhiteNoise's GZip and Brotli compression of static assets:
