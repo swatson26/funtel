@@ -35,7 +35,7 @@ else:
 
 
 if IS_HEROKU_APP:
-    ALLOWED_HOSTS = ['funtel.herokuapp.com/', '127.0.0.1', 'localhost']
+    ALLOWED_HOSTS = ['funtel.herokuapp.com', '127.0.0.1', 'localhost']
 else:
     ALLOWED_HOSTS = []
 
