@@ -31,7 +31,6 @@ if IS_HEROKU_APP:
     DEBUG = True
 else:
     DEBUG = True
-    
 
 
 if IS_HEROKU_APP:
