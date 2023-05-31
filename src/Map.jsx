@@ -54,8 +54,8 @@ const MapComponent = () => {
 
   const filteredData = stationData.filter((d) => {
     const timestamp = new Date(d.latest_timestamp).getTime();
-    const twentyFourHoursAgo = Date.now() - 24 * 60 * 60 * 1000;
-    return timestamp > twentyFourHoursAgo;
+    const TimeCutoff = Date.now() - 5 * 24 * 60 * 60 * 1000;
+    return timestamp > TimeCutoff;
   });
 
   const scatterplotLayer = new ScatterplotLayer({
@@ -71,7 +71,7 @@ const MapComponent = () => {
         const color = color0.map((c, index) => Math.round((1 - t) * c + t * color1[index]));
         return color;
       }
-      return [54, 56, 60]; // Default gray
+      return [88,0,0]; // Default
     },
     getLineColor: [0, 0, 0], // Black border color
     lineWidthMinPixels: 1, // Border line width
