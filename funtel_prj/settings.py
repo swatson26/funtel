@@ -17,16 +17,13 @@ import dj_database_url
 from decouple import config
 
 import mimetypes
-mimetypes.add_type("text/css", ".css", True)
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("application/javascript", ".js", True)
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config("SECRET_KEY")
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 IS_HEROKU_APP = "DYNO" in os.environ and not "CI" in os.environ
 
@@ -47,7 +44,6 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
     'datahub.apps.DatahubConfig',
-    'django_extensions',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -206,7 +202,7 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'build/static/')

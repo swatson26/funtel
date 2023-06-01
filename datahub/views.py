@@ -9,6 +9,9 @@ from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
 import os
 
+import logging
+logger = logging.getLogger('testlogger')
+
 
 class Assets(View):
 
@@ -17,6 +20,7 @@ class Assets(View):
         
         if os.path.isfile(path):
             with open(path, 'rb') as file:
+                logger.info('hello?')
                 return HttpResponse(file.read(), content_type='application/javascript')
         else:
             return HttpResponseNotFound()
