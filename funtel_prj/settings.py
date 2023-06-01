@@ -16,10 +16,10 @@ from pathlib import Path
 import dj_database_url
 from decouple import config
 
-import mimetypes
-
-mimetypes.add_type("text/css", ".css", True)
-mimetypes.add_type("application/javascript", ".js", True)
+WHITENOISE_MIMETYPES = {
+    '.css': 'text/css',
+    '.js': 'application/javascript-testtttt'
+}
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,7 +36,7 @@ else:
 if IS_HEROKU_APP:
     ALLOWED_HOSTS = ['funtel.herokuapp.com', '127.0.0.1', 'localhost']
 else:
-    ALLOWED_HOSTS = []
+    ALLOWED_HOSTS = ['localhost']
 
 CORS_ORIGIN_ALLOW_ALL = True
 

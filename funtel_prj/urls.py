@@ -19,7 +19,7 @@ from django.urls import path, include, re_path
 from datahub.views import AllStationsView, StationView
 from rest_framework import routers
 from django.shortcuts import render
-from django.contrib.staticfiles.views import serve
+# from django.contrib.staticfiles.views import serve
 
 import logging
 logger = logging.getLogger('testlogger')
