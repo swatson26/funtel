@@ -20,6 +20,8 @@ from datahub.views import AllStationsView, StationView
 from rest_framework import routers
 from django.shortcuts import render
 from django.contrib.staticfiles.views import serve
+from django.conf import settings
+
 
 import logging
 logger = logging.getLogger('testlogger')
@@ -38,8 +40,8 @@ router.register(r'stations', AllStationsView, 'stations')
 router.register(r'station', StationView, 'station')
 
 urlpatterns = [
-     re_path(r'^static/(?P<path>.*)$', serve),
+    *static(settings.STATIC_URL, document_root=settings.STATIC_ROOT),
      path('admin/', admin.site.urls),
-     path('api/', include(router.urls)),
-     re_path(r"^$", render_react)
+    #  path('api/', include(router.urls)),
+    #  re_path(r"^$", render_react)
      ]
