@@ -28,7 +28,6 @@ router = routers.DefaultRouter()
 router.register(r'stations', AllStationsView, 'stations')
 router.register(r'station', StationView, 'station')
 
-
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('api/', include(router.urls)),
