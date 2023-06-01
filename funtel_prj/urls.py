@@ -25,7 +25,5 @@ router.register(r'station', StationView, 'station')
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('api/', include(router.urls)),
-     re_path(r"^$", render_react),
-     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': os.path.join(settings.BASE_DIR, 'build/static')}),
-     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': os.path.join(settings.STATIC_ROOT)}),
+     re_path(r"^$", render_react)
      ]
