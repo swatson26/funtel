@@ -38,7 +38,7 @@ router.register(r'stations', AllStationsView, 'stations')
 router.register(r'station', StationView, 'station')
 
 urlpatterns = [
-    #  re_path(r'^static/(?P<path>.*)$', serve),
+     re_path(r'^static/(?P<path>.*)$', serve),
      path('admin/', admin.site.urls),
      path('api/', include(router.urls)),
      re_path(r"^$", render_react)
