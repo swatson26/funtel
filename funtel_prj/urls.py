@@ -3,7 +3,7 @@ from django.urls import path, include, re_path
 from datahub.views import AllStationsView, StationView
 from rest_framework import routers
 from django.shortcuts import render
-from django.views.static import serve 
+from django.views.static import serve
 from django.conf import settings
 import logging
 import os
@@ -25,5 +25,14 @@ router.register(r'station', StationView, 'station')
 urlpatterns = [
      path('admin/', admin.site.urls),
      path('api/', include(router.urls)),
-     re_path(r"^$", render_react)
+     re_path(r"^$", render_react),
+     re_path(r'^static/(?P<path>.*)$',
+             serve, {'document_root': os.path.join(settings.BASE_DIR,
+                                                   'build/static'
+                                                   )
+                     }
+             ),
+     re_path(r'^static/(?P<path>.*)$',
+             serve, {'document_root': settings.STATIC_ROOT}),
+
      ]
