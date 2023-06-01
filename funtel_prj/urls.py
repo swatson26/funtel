@@ -21,6 +21,7 @@ from rest_framework import routers
 from django.shortcuts import render
 from django.contrib.staticfiles.views import serve
 from django.conf import settings
+from django.conf.urls.static import static
 
 
 import logging
