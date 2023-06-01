@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "whitenoise.runserver_nostatic",
+    'build'
 ]
 
 MIDDLEWARE = [
@@ -203,10 +204,11 @@ LOGGING = {
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'build')
+    os.path.join(BASE_DIR, 'build'),
+    os.path.join(BASE_DIR, 'build/static')
 ]
 
 STORAGES = {
