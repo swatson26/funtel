@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Divider } from '@mui/material';
-import { createTheme, ThemeProvider, useThemeProps } from '@mui/material/styles';
+import { Typography, Divider, Container } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useParams } from 'react-router-dom';
 import { VictoryChart, VictoryLine, VictoryAxis, VictoryVoronoiContainer, VictoryTooltip, VictoryLabel } from 'victory';
-import { ReactComponent as Logo } from './assets/mtn.svg';
 import axios from 'axios';
+import SnowAppBar from './AppBar'; 
 
 const SitePage = () => {
   const { snotel_site_id } = useParams();
@@ -29,7 +29,6 @@ const SitePage = () => {
       });
   }, [snotel_site_id]);
 
-  // Determine the number of x-axis labels based on screen width
   const getXAxisTickCount = () => {
     const screenWidth = window.innerWidth;
     if (screenWidth >= 1200) {
@@ -67,51 +66,14 @@ const SitePage = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <header
-        style={{
-          backgroundColor: theme.palette.background.default,
-          padding: '20px',
-          display: 'flex',
-          alignItems: 'center',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            height: '3em',
-            marginRight: '5px',
-          }}
-        >
-          <Logo
-            style={{
-              width: 'auto',
-              height: '100%',
-              objectFit: 'contain',
-            }}
-          />
-        </div>
-        <Typography
-          variant="h1"
-          component="h1"
-          style={{
-            color: theme.palette.primary.main,
-            fontFamily: 'Signika Negative, sans-serif',
-            fontWeight: 'bold',
-            fontSize: '4rem',
-            marginLeft: '5px',
-          }}
-        >
-          snow
-          </Typography>
-      </header>
+      <SnowAppBar /> 
       <Divider />
+      <Container>
       <div
         style={{
-          padding: '0 20px',
-          marginTop: '20px',
-          marginBottom: '20px',
-          fontFamily: 'Poppins, sans-serif',
+          padding: '0 10px',
+          marginTop: '10px',
+          marginBottom: '10px',
           backgroundColor: theme.palette.background.default,
         }}
       >
@@ -132,7 +94,6 @@ const SitePage = () => {
             style={{
               color: theme.palette.primary.main,
               fontFamily: 'Open Sans, sans-serif',
-              fontWeight: 'bold',
               marginLeft: '20px',
               marginTop: '20px',
             }}
@@ -206,6 +167,9 @@ const SitePage = () => {
           </VictoryChart>
         </div>
       </div>
+
+    </Container>
+      
     </ThemeProvider>
   );
 };

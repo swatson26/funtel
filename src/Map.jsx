@@ -72,12 +72,12 @@ const MapComponent = () => {
       return [88,0,0]; // Default
     },
     getLineColor: [0, 0, 0], // Black border color
-    lineWidthMinPixels: 1, // Border line width
+    lineWidthMinPixels: 2, // Border line width
     pickable: true,
     stroked: true,
-    radiusScale: { type: 'linear', field: 'zoom', domain: [6, 18], range: [6, 2] },
+    radiusScale: 6,
     radiusMinPixels: 6,
-    radiusMaxPixels: 6,
+    radiusMaxPixels: 10,
     onHover: handleHover,
     onClick: (info) => {
       const { object } = info;
