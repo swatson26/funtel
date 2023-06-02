@@ -10,6 +10,7 @@
 ## TODO
 * get rid of suds and ulmo - relatedly, fix the problem when there is temp but no depth for a timestamp
 * add weather forecasts to site pages
+* static urls.py is a bad hack
 * add wind rose to site pages
 * handle local/utc time better
 * pass station name thru to site so dont need to make another call
