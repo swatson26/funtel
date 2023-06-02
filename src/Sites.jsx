@@ -94,6 +94,7 @@ const SitePage = () => {
             style={{
               color: theme.palette.primary.main,
               fontFamily: 'Open Sans, sans-serif',
+              fontWeight: 'bold',
               marginLeft: '20px',
               marginTop: '20px',
             }}

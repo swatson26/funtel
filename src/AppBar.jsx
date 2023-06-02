@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { Routes, Link, Route } from 'react-router-dom';
-
+import SitePage from './Sites';
 
 const theme = createTheme({
   palette: {
@@ -43,9 +43,6 @@ const favorites = [
   { name: 'Porphyry Creek', id: 'SNOTEL:701_CO_SNTL' },
 ];
 
-function SitePage() {
-  return <Typography variant="h3">Site Page</Typography>;
-}
 
 function SnowAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -65,7 +62,7 @@ function SnowAppBar() {
           <Toolbar disableGutters>
             <Logo style={{ height: '2rem', width: 'auto' }} />
             <Typography
-              variant="h3"
+              variant="h2"
               noWrap
               component={Link}
               to="/"
