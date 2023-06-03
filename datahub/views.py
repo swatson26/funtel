@@ -60,7 +60,8 @@ class StationView(viewsets.ViewSet):
         end_time = datetime.now()
         start_time = end_time - timedelta(hours=time_offset_hrs)
 
-        data = SnotelData.objects.filter(snotel_site=station, timestamp_local_range=(start_time, end_time))
+        data = SnotelData.objects.filter(snotel_site=station,
+                                         timestamp_local__range=(start_time, end_time))
         serializer = SnotelDataSerializer(data, many=True)
 
         response = {
