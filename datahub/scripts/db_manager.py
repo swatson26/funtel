@@ -63,12 +63,12 @@ class DatabaseManager:
             # num_rows_inserted = connection.scalar()
             # logger.info(f"Inserted {num_rows_inserted} rows of SNOTEL data.")
 
-        with self.engine.connect() as connection:
-            drop_table_sql = f"DROP TABLE IF EXISTS {temp_table_name}"
-            print(drop_table_sql)
-            connection.execute(text(drop_table_sql))
-            connection.commit()
-            logger.info(f"temp tbl dropped")
+        # with self.engine.connect() as connection:
+        #     drop_table_sql = f"DROP TABLE IF EXISTS {temp_table_name}"
+        #     print(drop_table_sql)
+        #     connection.execute(text(drop_table_sql))
+        #     connection.commit()
+        #     logger.info(f"temp tbl dropped")
 
 
     def insert_snotel_sites(self, sites_data):

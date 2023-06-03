@@ -163,7 +163,7 @@ class SnotelDataFetcher:
         start_date = current_date - timedelta(hours=offset_hrs)
         end_date = current_date.strftime("%Y-%m-%d")
         start_date = start_date.strftime("%Y-%m-%d")
-
+        self.logger.info(f'running for {start_date} to {end_date}')
         retry_count = 0
         while retry_count < retry_attempts:
             try:
