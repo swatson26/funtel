@@ -14,11 +14,7 @@ const INITIAL_VIEW_STATE = {
   pitch: 0
 };
 const MAP_STYLE = 'mapbox://styles/mapbox/outdoors-v12';
-const NAV_CONTROL_STYLE = {
-  position: 'absolute',
-  top: 10,
-  left: 10
-};
+
 
 const colorScale = [
   [0, [88, 0, 0]],
@@ -99,7 +95,7 @@ const MapComponent = () => {
         <StaticMap 
         mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
         mapStyle={MAP_STYLE} />
-        <NavigationControl style={NAV_CONTROL_STYLE} />
+       
         {hoveredObject && (
           <div
             style={{
