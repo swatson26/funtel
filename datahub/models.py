@@ -26,10 +26,10 @@ class SnotelData(models.Model):
     snotel_site = models.ForeignKey(SnotelSite, on_delete=models.CASCADE)
     temp = models.FloatField(null=True)
     snow_depth = models.FloatField(null=True)
-    timestamp_local = models.DateTimeField()
+    timestamp = models.DateTimeField()
 
     # class Meta:
     #     app_label = 'datahub.apps.DatahubConfig'
 
     def __str__(self):
-        return f"SNOTEL Data for {self.snotel_site.site_id} at {self.timestamp_local}"
+        return f"SNOTEL Data for {self.snotel_site.site_id} at {self.timestamp}"

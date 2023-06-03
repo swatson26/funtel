@@ -8,6 +8,7 @@ from .serializers import SnotelSiteSerializer, SnotelDataSerializer
 from django.views import View
 from django.http import HttpResponse, HttpResponseNotFound
 import os
+import pytz
 
 import logging
 logger = logging.getLogger('testlogger')
@@ -38,9 +39,9 @@ class AllStationsView(viewsets.ViewSet):
                 'elevation_ft': station.elevation_ft
             }
             try:
-                latest_data = SnotelData.objects.filter(snotel_site=station).latest('timestamp_local')
+                latest_data = SnotelData.objects.filter(snotel_site=station).latest('timestamp')
                 station_data['latest_snow_depth'] = latest_data.snow_depth
-                station_data['latest_timestamp'] = latest_data.timestamp_local
+                station_data['latest_timestamp'] = latest_data.timestamp
             except ObjectDoesNotExist:
                 station_data['latest_snow_depth'] = None
                 station_data['latest_timestamp'] = None
@@ -60,15 +61,15 @@ class StationView(viewsets.ViewSet):
         end_time = datetime.now()
         start_time = end_time - timedelta(hours=time_offset_hrs)
 
-        data = SnotelData.objects.filter(snotel_site=station,
-                                         timestamp_local__range=(start_time, end_time))
+        local_timezone = pytz.timezone('America/Denver')
+        data = SnotelData.objects.filter(snotel_site=station, timestamp__range=(start_time, end_time))
         serializer = SnotelDataSerializer(data, many=True)
 
         response = {
-        'station_id': station.site_id,
-        'data': [{'timestamp_local': d.timestamp_local,
-                  'temp': d.temp,
-                  'snow_depth': d.snow_depth} for d in data]
-    }
+            'station_id': station.site_id,
+            'data': [{'timestamp_station_local': d.timestamp,
+                      'temp': d.temp,
+                      'snow_depth': d.snow_depth} for d in data]
+        }
 
         return JsonResponse(response)

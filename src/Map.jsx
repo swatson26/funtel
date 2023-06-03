@@ -9,7 +9,7 @@ import axios from 'axios';
 const INITIAL_VIEW_STATE = {
   latitude: 39.094580,
   longitude: -106.355425,
-  zoom: 7,
+  zoom: 6.5,
   bearing: 0,
   pitch: 0
 };

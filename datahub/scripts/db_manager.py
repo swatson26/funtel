@@ -29,9 +29,9 @@ class DatabaseManager:
         Inserts SNOTEL data into the database.
 
         This method inserts the SNOTEL data into the database. It takes a DataFrame
-        consisting of four columns: 'snotel_site', 'temp', 'snow_depth', and 'date_time_local'.
+        consisting of four columns: 'snotel_site', 'temp', 'snow_depth', and 'date_time'.
         The method inserts a new row for each data entry in the DataFrame, only if there
-        is no existing entry with the same 'snotel_site' and 'date_time_local'.
+        is no existing entry with the same 'snotel_site' and 'date_time'.
 
         Args:
             data_df (pandas.DataFrame): DataFrame containing SNOTEL data.
@@ -46,14 +46,14 @@ class DatabaseManager:
 
         # Perform the upsert logic using SQL
         sql = f"""
-        INSERT INTO datahub_snoteldata (snotel_site_id, temp, snow_depth, timestamp_local)
-        SELECT ss.site_id, tsd.temp, tsd.snow_depth, tsd.datetime_local
+        INSERT INTO datahub_snoteldata (snotel_site_id, temp, snow_depth, timestamp)
+        SELECT ss.site_id, tsd.temp, tsd.snow_depth, tsd.timestamp
         FROM  {temp_table_name} AS tsd
         INNER JOIN datahub_snotelsite AS ss ON tsd.snotel_site_id = ss.site_id
         WHERE NOT EXISTS (
             SELECT 1
             FROM datahub_snoteldata AS sd
-            WHERE sd.snotel_site_id = ss.site_id AND sd.timestamp_local = tsd.datetime_local
+            WHERE sd.snotel_site_id = ss.site_id AND sd.timestamp = tsd.timestamp
         )
         """
         with self.engine.connect() as connection:
@@ -63,12 +63,12 @@ class DatabaseManager:
             # num_rows_inserted = connection.scalar()
             # logger.info(f"Inserted {num_rows_inserted} rows of SNOTEL data.")
 
-        # with self.engine.connect() as connection:
-        #     drop_table_sql = f"DROP TABLE IF EXISTS {temp_table_name}"
-        #     print(drop_table_sql)
-        #     connection.execute(text(drop_table_sql))
-        #     connection.commit()
-        #     logger.info(f"temp tbl dropped")
+        with self.engine.connect() as connection:
+            drop_table_sql = f"DROP TABLE IF EXISTS {temp_table_name}"
+            print(drop_table_sql)
+            connection.execute(text(drop_table_sql))
+            connection.commit()
+            logger.info(f"temp tbl dropped")
 
 
     def insert_snotel_sites(self, sites_data):

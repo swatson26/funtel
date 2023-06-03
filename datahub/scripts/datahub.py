@@ -179,11 +179,11 @@ class SnotelDataFetcher:
                     self.logger.error("Exceeded retry attempts. Unable to fetch SNOTEL site data.")
                     return None
 
-        all_site_data['datetime_local'] = all_site_data['Date'].apply(lambda x: pd.to_datetime(x).tz_localize(timezone('America/Denver')))
+        all_site_data['timestamp'] = all_site_data['Date'].apply(lambda x: pd.to_datetime(x).tz_localize(timezone('America/Denver')))
         all_site_data['snow_depth'] = all_site_data['Snow Depth (in)']
         all_site_data['temp'] = all_site_data['Air Temperature Observed (degF)']
         all_site_data['snotel_site_id'] = all_site_data['site_id']
-        all_site_data = all_site_data.loc[:,['snotel_site_id','temp','snow_depth','datetime_local']]
+        all_site_data = all_site_data.loc[:,['snotel_site_id','temp','snow_depth','timestamp']]
         
         if add_to_db and all_site_data is not None:
             self.db_manager.insert_snotel_data(all_site_data)

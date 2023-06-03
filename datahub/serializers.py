@@ -11,4 +11,4 @@ class SnotelSiteSerializer(serializers.ModelSerializer):
 class SnotelDataSerializer(serializers.ModelSerializer):
     class Meta:
         model = SnotelData
-        fields = ('snotel_site', 'temp', 'snow_depth', 'timestamp_local')
+        fields = ('snotel_site', 'temp', 'snow_depth', 'timestamp')
