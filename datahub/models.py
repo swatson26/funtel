@@ -32,4 +32,4 @@ class SnotelData(models.Model):
     #     app_label = 'datahub.apps.DatahubConfig'
 
     def __str__(self):
-        return f"SNOTEL Data for {self.snotel_site.site_id} at {self.timestamp_utc}"
+        return f"SNOTEL Data for {self.snotel_site.site_id} at {self.timestamp_local}"

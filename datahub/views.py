@@ -20,7 +20,6 @@ class Assets(View):
 
         if os.path.isfile(path):
             with open(path, 'rb') as file:
-                logger.info('hello?')
                 return HttpResponse(file.read(), content_type='application/javascript')
         else:
             return HttpResponseNotFound()
@@ -36,12 +35,12 @@ class AllStationsView(viewsets.ViewSet):
                 'name': station.name,
                 'lat': station.lat,
                 'lon': station.lon,
-                'elevation_m': station.elevation_m
+                'elevation_ft': station.elevation_ft
             }
             try:
-                latest_data = SnotelData.objects.filter(snotel_site=station).latest('timestamp_utc')
+                latest_data = SnotelData.objects.filter(snotel_site=station).latest('timestamp_local')
                 station_data['latest_snow_depth'] = latest_data.snow_depth
-                station_data['latest_timestamp'] = latest_data.timestamp_utc
+                station_data['latest_timestamp'] = latest_data.timestamp_local
             except ObjectDoesNotExist:
                 station_data['latest_snow_depth'] = None
                 station_data['latest_timestamp'] = None
@@ -61,12 +60,12 @@ class StationView(viewsets.ViewSet):
         end_time = datetime.now()
         start_time = end_time - timedelta(hours=time_offset_hrs)
 
-        data = SnotelData.objects.filter(snotel_site=station, timestamp_utc__range=(start_time, end_time))
+        data = SnotelData.objects.filter(snotel_site=station, timestamp_local_range=(start_time, end_time))
         serializer = SnotelDataSerializer(data, many=True)
 
         response = {
         'station_id': station.site_id,
-        'data': [{'timestamp_utc': d.timestamp_utc,
+        'data': [{'timestamp_local': d.timestamp_local,
                   'temp': d.temp,
                   'snow_depth': d.snow_depth} for d in data]
     }
