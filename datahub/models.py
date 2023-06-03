@@ -10,7 +10,7 @@ class SnotelSite(models.Model):
     name = models.CharField(max_length=100)
     lat = models.FloatField()
     lon = models.FloatField()
-    elevation_m = models.FloatField()
+    elevation_ft = models.FloatField()
 
     # class Meta:
     #     app_label = 'datahub.apps.DatahubConfig'
@@ -26,7 +26,7 @@ class SnotelData(models.Model):
     snotel_site = models.ForeignKey(SnotelSite, on_delete=models.CASCADE)
     temp = models.FloatField(null=True)
     snow_depth = models.FloatField(null=True)
-    timestamp_utc = models.DateTimeField()
+    timestamp_local = models.DateTimeField()
 
     # class Meta:
     #     app_label = 'datahub.apps.DatahubConfig'

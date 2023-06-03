@@ -29,9 +29,9 @@ class DatabaseManager:
         Inserts SNOTEL data into the database.
 
         This method inserts the SNOTEL data into the database. It takes a DataFrame
-        consisting of four columns: 'snotel_site', 'temp', 'snow_depth', and 'date_time_utc'.
+        consisting of four columns: 'snotel_site', 'temp', 'snow_depth', and 'date_time_local'.
         The method inserts a new row for each data entry in the DataFrame, only if there
-        is no existing entry with the same 'snotel_site' and 'date_time_utc'.
+        is no existing entry with the same 'snotel_site' and 'date_time_local'.
 
         Args:
             data_df (pandas.DataFrame): DataFrame containing SNOTEL data.
@@ -46,14 +46,14 @@ class DatabaseManager:
 
         # Perform the upsert logic using SQL
         sql = f"""
-        INSERT INTO datahub_snoteldata (snotel_site_id, temp, snow_depth, timestamp_utc)
-        SELECT ss.site_id, tsd.temp, tsd.snow_depth, tsd.date_time_utc
+        INSERT INTO datahub_snoteldata (snotel_site_id, temp, snow_depth, timestamp_local)
+        SELECT ss.site_id, tsd.temp, tsd.snow_depth, tsd.datetime_local
         FROM  {temp_table_name} AS tsd
         INNER JOIN datahub_snotelsite AS ss ON tsd.snotel_site_id = ss.site_id
         WHERE NOT EXISTS (
             SELECT 1
             FROM datahub_snoteldata AS sd
-            WHERE sd.snotel_site_id = ss.site_id AND sd.timestamp_utc = tsd.date_time_utc
+            WHERE sd.snotel_site_id = ss.site_id AND sd.timestamp_local = tsd.datetime_local
         )
         """
         with self.engine.connect() as connection:
@@ -87,7 +87,7 @@ class DatabaseManager:
         """
         num_sites_inserted = 0
         with transaction.atomic():
-            for site_data in sites_data:
+            for ix, site_data in sites_data.iterrows():
                 site_id = site_data['site_id']
                 if not SnotelSite.objects.filter(site_id=site_id).exists():
                     SnotelSite.objects.create(
@@ -95,7 +95,7 @@ class DatabaseManager:
                         name=site_data['name'],
                         lat=site_data['lat'],
                         lon=site_data['lon'],
-                        elevation_m=site_data['elevation_m']
+                        elevation_ft=site_data['elevation_ft']
                     )
                     num_sites_inserted += 1
                     logger.debug(f"Inserted SNOTEL site with site_id: {site_id}")
