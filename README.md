@@ -5,7 +5,10 @@ siblings in the mountains. Snotels were created to provide crucial data on clima
 watersheds and used to forecast water supply. They are also used by skiers, for a less important, but more fun goal
 of finding the best areas to ski tour so what if we used the amazing data from these remote sensors, and just conveyed the information in a way more geared for skiers?
 
-###  user objectives I'm seeking to solve
+this was my attempt https://funtel.herokuapp.com/
+
+
+### 🎯 goals I was seeking to solve
 * ease for mobile users, to quickly navigate to a known snotel, and be able
 quicky see both snow depth and temp on a chart without any wonky scrolling
 while doing last min planning on where to ski that morning.
